@@ -6,10 +6,7 @@ from .views import *
 urlpatterns = [
     path('', Home.as_view()),
 
-    path('profile/',UserProfileDetail.as_view(),name='profile'),
-    path('profile/edit',UserProfileUpdate.as_view(),name='profile-edit'),
-    path('profile/statistic', UserStatistics.as_view(),name='profile-statistic'),
-
+     
     path('categories/', CategoryListCreate.as_view(), name='category-list-create'),
     path('tags/', TagListCreate.as_view(), name='tag-list-create'),
     path('questions/', QuestionListCreate.as_view(), name='question-list-create'),

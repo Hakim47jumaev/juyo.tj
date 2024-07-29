@@ -9,32 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 
-
-class UserProfileDetail(generics.RetrieveAPIView):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_object(self):
-        return self.request.user.userprofile
-
-class UserProfileUpdate(generics.UpdateAPIView):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileUpdateSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_object(self):
-        return self.request.user.userprofile
-
-class UserStatistics(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserStatisticsSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_object(self):
-        return self.request.user
-
-
+ 
 
 class CategoryListCreate(generics.ListCreateAPIView):
     queryset = Category.objects.all()
