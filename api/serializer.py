@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import *
 
 
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -18,26 +19,7 @@ class UserProfileUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ['bio']
-
-class UserStatisticsSerializer(serializers.ModelSerializer):
-    questions_count = serializers.SerializerMethodField()
-    answers_count = serializers.SerializerMethodField()
-    votes_count = serializers.SerializerMethodField()
-
-    class Meta:
-        model = User
-        fields = ['username', 'questions_count', 'answers_count', 'votes_count']
-
-    def get_questions_count(self, obj):
-        return Question.objects.filter(user=obj).count()
-
-    def get_answers_count(self, obj):
-        return Answer.objects.filter(user=obj).count()
-
-    def get_votes_count(self, obj):
-        return obj.question_set.aggregate(votes_count=models.Sum('likes'))['votes_count'] or 0
-
-
+ 
 
 
 
@@ -78,10 +60,7 @@ class AnswerSerializer(serializers.ModelSerializer):
         model = Answer
         fields = '__all__'
 
-class ReviewSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Review
-        fields = '__all__'
+ 
     
 class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:
@@ -94,5 +73,5 @@ class QuestionDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Question
-        fields = ['title','content','author','categories','tags','created_at','answer']
+        fields = ['title','content','author','categories','tags','created_at','answer' ]
 

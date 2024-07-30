@@ -10,20 +10,6 @@ class UserProfile(models.Model):
     def str(self):
         return self.user.username
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        UserProfile.objects.create(user=instance)
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.userprofile.save()
-
-
-
-
-
-
 
 
 class Category(models.Model):
@@ -58,16 +44,7 @@ class Answer(models.Model):
     def str(self):
         return f"Answer to {self.question.title} by {self.author.username}"
 
-class Review(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    content = models.TextField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def str(self):
-        return f"Review by {self.author.username} on {self.question.title}"
-
-
+ 
 class Feedback(models.Model):
     name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=15)

@@ -1,5 +1,5 @@
 from rest_framework import generics, permissions
-from .models import Category, Tag, Question, Answer, Review
+from .models import Category, Tag, Question, Answer 
 from .serializer import*
 from django.shortcuts import get_object_or_404
 from rest_framework.filters import  SearchFilter
@@ -7,6 +7,27 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
+
+
+
+class UserProfileDetail(generics.RetrieveAPIView):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user.userprofile
+
+class UserProfileUpdate(generics.UpdateAPIView):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileUpdateSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user.userprofile
+
+ 
+
 
 
  
@@ -25,6 +46,7 @@ class TagListCreate(generics.ListCreateAPIView):
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ['name']
     search_fields = ['name']
+    permission_classes = [permissions.IsAuthenticated]
      
 
 class QuestionListCreate(generics.ListCreateAPIView):
@@ -39,6 +61,7 @@ class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionDetailSerializer
      
+     
 
 class AnswerListCreate(generics.ListCreateAPIView):
     queryset = Answer.objects.all()
@@ -46,24 +69,15 @@ class AnswerListCreate(generics.ListCreateAPIView):
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ['question', 'author']
     search_fields = ['question', 'author']
-     
+    permission_classes = [permissions.IsAuthenticated]
 
 class AnswerDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
+    permission_classes = [permissions.IsAuthenticated]
      
 
-class ReviewListCreate(generics.ListCreateAPIView):
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter]
-    filterset_fields = ['question', 'author']
-    search_fields = ['question', 'author']
-     
-
-class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
+ 
      
 
 from rest_framework.decorators import api_view

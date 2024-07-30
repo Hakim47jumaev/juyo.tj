@@ -23,11 +23,7 @@ class AnswerAdmin(admin.ModelAdmin):
     search_fields = ('content',)
     list_filter = ('created_at', 'question')
 
-@admin.register(Review)
-class ReviewAdmin(admin.ModelAdmin):
-    list_display = ('question', 'author', 'created_at')
-    search_fields = ('content',)
-    list_filter = ('created_at', 'question')
+ 
 
 @admin.register(Feedback)
 class ReviewAdmin(admin.ModelAdmin):
