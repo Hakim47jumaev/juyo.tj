@@ -6,10 +6,13 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
 
-@admin.register(Tag)
+ 
 class TagAdmin(admin.ModelAdmin):
-    list_display = ('name',)
-    search_fields = ('name',)
+    fieldsets = (
+        (None, {'fields': ('name',)}),   
+    )
+
+admin.site.register(Tag,TagAdmin)
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):

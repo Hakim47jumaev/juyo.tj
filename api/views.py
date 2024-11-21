@@ -33,6 +33,7 @@ class UserProfileUpdate(generics.UpdateAPIView):
  
 
 class CategoryListCreate(generics.ListCreateAPIView):
+    authentication_classes = [JWTAuthentication]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]
@@ -41,6 +42,7 @@ class CategoryListCreate(generics.ListCreateAPIView):
      
 
 class TagListCreate(generics.ListCreateAPIView):
+    authentication_classes = [JWTAuthentication]
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]
@@ -55,7 +57,7 @@ class QuestionListCreate(generics.ListCreateAPIView):
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ['categories', 'tags']
     search_fields = ['title', 'content']
-    permission_classes = [permissions.IsAuthenticated]
+     
 
 class QuestionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Question.objects.all()
@@ -107,6 +109,7 @@ def vote_answer(request, pk, vote_type):
 
 
 class FeedbackListCreate(generics.ListCreateAPIView):
+    authentication_classes = [JWTAuthentication]
     queryset = Feedback.objects.all()
     serializer_class = FeedbackSerializer
     permission_classes = [permissions.AllowAny]
